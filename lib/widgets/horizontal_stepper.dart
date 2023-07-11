@@ -1,6 +1,5 @@
 import 'package:another_stepper/dto/stepper_data.dart';
-import 'package:another_stepper/utils/utils.dart';
-import 'package:another_stepper/widgets/stepper_dot_widget.dart';
+import 'package:another_stepper/widgets/common/dot_provider.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalStepperItem extends StatelessWidget {
@@ -15,9 +14,8 @@ class HorizontalStepperItem extends StatelessWidget {
       required this.activeBarColor,
       required this.inActiveBarColor,
       required this.barHeight,
-      required this.dotWidget,
-      required this.titleTextStyle,
-      required this.subtitleTextStyle})
+      required this.iconHeight,
+      required this.iconWidth})
       : super(key: key);
 
   /// Stepper item of type [StepperData] to inflate stepper with data
@@ -44,14 +42,11 @@ class HorizontalStepperItem extends StatelessWidget {
   /// Bar height/thickness
   final double barHeight;
 
-  /// [Widget] for dot/point
-  final Widget? dotWidget;
+  /// Height of [StepperData.iconWidget]
+  final double iconHeight;
 
-  /// [TextStyle] for title
-  final TextStyle titleTextStyle;
-
-  /// [TextStyle] for subtitle
-  final TextStyle subtitleTextStyle;
+  /// Width of [StepperData.iconWidget]
+  final double iconWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -65,51 +60,55 @@ class HorizontalStepperItem extends StatelessWidget {
   }
 
   List<Widget> getChildren() {
-    final Widget dot = dotWidget ??
-        StepperDot(
-          index: index,
-          totalLength: totalLength,
-          activeIndex: activeIndex,
-        );
     return [
       if (item.title != null) ...[
         SizedBox(
-            child: Text(
-          item.title!,
-          textAlign: TextAlign.center,
-          style: titleTextStyle,
-        )),
+          child: Text(
+            item.title!.text,
+            textAlign: TextAlign.center,
+            style: item.title!.textStyle ??
+                const TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+        ),
         const SizedBox(height: 4),
       ],
       if (item.subtitle != null) ...[
         SizedBox(
-            child: Text(
-          item.subtitle!,
-          textAlign: TextAlign.center,
-          style: subtitleTextStyle,
-        )),
+          child: Text(
+            item.subtitle!.text,
+            textAlign: TextAlign.center,
+            style: item.subtitle!.textStyle ??
+                const TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w500,
+                ),
+          ),
+        ),
         const SizedBox(height: 8),
       ],
       Row(
         children: [
-          if (index == 0)
-            const SizedBox()
-          else
+          if (index != 0)
             Flexible(
               child: Container(
                 color: (index <= activeIndex ? activeBarColor : inActiveBarColor),
                 height: barHeight,
               ),
             ),
-          index <= activeIndex
-              ? dot
-              : ColorFiltered(
-                  colorFilter: Utils.getGreyScaleColorFilter(),
-                  child: dot,
-                ),
-          if (index == totalLength - 1)
-            const SizedBox()
-          else
+          DotProvider(
+            activeIndex: activeIndex,
+            index: index,
+            item: item,
+            totalLength: totalLength,
+            iconHeight: iconHeight,
+            iconWidth: iconWidth,
+          ),
+          if (index != totalLength - 1)
             Flexible(
               child: Container(
                 color: (index < activeIndex ? activeBarColor : inActiveBarColor),

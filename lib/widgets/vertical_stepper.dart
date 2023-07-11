@@ -1,6 +1,5 @@
 import 'package:another_stepper/dto/stepper_data.dart';
-import 'package:another_stepper/utils/utils.dart';
-import 'package:another_stepper/widgets/stepper_dot_widget.dart';
+import 'package:another_stepper/widgets/common/dot_provider.dart';
 import 'package:flutter/material.dart';
 
 class VerticalStepperItem extends StatelessWidget {
@@ -16,9 +15,8 @@ class VerticalStepperItem extends StatelessWidget {
       required this.activeBarColor,
       required this.inActiveBarColor,
       required this.barWidth,
-      required this.dotWidget,
-      required this.titleTextStyle,
-      required this.subtitleTextStyle})
+      required this.iconHeight,
+      required this.iconWidth})
       : super(key: key);
 
   /// Stepper item of type [StepperData] to inflate stepper with data
@@ -48,14 +46,11 @@ class VerticalStepperItem extends StatelessWidget {
   /// Bar width/thickness
   final double barWidth;
 
-  /// [Widget] for dot/point
-  final Widget? dotWidget;
+  /// Height of [StepperData.iconWidget]
+  final double iconHeight;
 
-  /// [TextStyle] for title
-  final TextStyle titleTextStyle;
-
-  /// [TextStyle] for subtitle
-  final TextStyle subtitleTextStyle;
+  /// Width of [StepperData.iconWidget]
+  final double iconWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -69,28 +64,18 @@ class VerticalStepperItem extends StatelessWidget {
       Column(
         children: [
           Container(
-            color: index == 0
-                ? Colors.transparent
-                : (index <= activeIndex ? activeBarColor : inActiveBarColor),
+            color: index == 0 ? Colors.transparent : (index <= activeIndex ? activeBarColor : inActiveBarColor),
             width: barWidth,
             height: gap,
           ),
-          index <= activeIndex
-              ? dotWidget ??
-                  StepperDot(
-                    index: index,
-                    totalLength: totalLength,
-                    activeIndex: activeIndex,
-                  )
-              : ColorFiltered(
-                  colorFilter: Utils.getGreyScaleColorFilter(),
-                  child: dotWidget ??
-                      StepperDot(
-                        index: index,
-                        totalLength: totalLength,
-                        activeIndex: activeIndex,
-                      ),
-                ),
+          DotProvider(
+            activeIndex: activeIndex,
+            index: index,
+            item: item,
+            totalLength: totalLength,
+            iconHeight: iconHeight,
+            iconWidth: iconWidth,
+          ),
           Container(
             color: index == totalLength - 1
                 ? Colors.transparent
@@ -103,22 +88,31 @@ class VerticalStepperItem extends StatelessWidget {
       const SizedBox(width: 8),
       Expanded(
         child: Column(
-          crossAxisAlignment:
-              isInverted ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          crossAxisAlignment: isInverted ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             if (item.title != null) ...[
               Text(
-                item.title!,
+                item.title!.text,
                 textAlign: TextAlign.start,
-                style: titleTextStyle,
+                style: item.title!.textStyle ??
+                    const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
               ),
             ],
             if (item.subtitle != null) ...[
               const SizedBox(height: 8),
               Text(
-                item.subtitle!,
+                item.subtitle!.text,
                 textAlign: TextAlign.start,
-                style: subtitleTextStyle,
+                style: item.subtitle!.textStyle ??
+                    const TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500,
+                    ),
               ),
             ],
           ],
