@@ -58,8 +58,7 @@ class HorizontalStepperItem extends StatelessWidget {
     return Flexible(
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment:
-            isInverted ? MainAxisAlignment.start : MainAxisAlignment.end,
+        mainAxisAlignment: isInverted ? MainAxisAlignment.start : MainAxisAlignment.end,
         children: isInverted ? getInvertedChildren() : getChildren(),
       ),
     );
@@ -76,45 +75,47 @@ class HorizontalStepperItem extends StatelessWidget {
       if (item.title != null) ...[
         SizedBox(
             child: Text(
-              item.title!,
-              textAlign: TextAlign.center,
-              style: titleTextStyle,
-            )),
+          item.title!,
+          textAlign: TextAlign.center,
+          style: titleTextStyle,
+        )),
         const SizedBox(height: 4),
       ],
       if (item.subtitle != null) ...[
         SizedBox(
             child: Text(
-              item.subtitle!,
-              textAlign: TextAlign.center,
-              style: subtitleTextStyle,
-            )),
+          item.subtitle!,
+          textAlign: TextAlign.center,
+          style: subtitleTextStyle,
+        )),
         const SizedBox(height: 8),
       ],
       Row(
         children: [
-          Flexible(
-            child: Container(
-              color: index == 0
-                  ? Colors.transparent
-                  : (index <= activeIndex ? activeBarColor : inActiveBarColor),
-              height: barHeight,
+          if (index == 0)
+            const SizedBox()
+          else
+            Flexible(
+              child: Container(
+                color: (index <= activeIndex ? activeBarColor : inActiveBarColor),
+                height: barHeight,
+              ),
             ),
-          ),
           index <= activeIndex
               ? dot
               : ColorFiltered(
                   colorFilter: Utils.getGreyScaleColorFilter(),
                   child: dot,
                 ),
-          Flexible(
-            child: Container(
-              color: index == totalLength - 1
-                  ? Colors.transparent
-                  : (index < activeIndex ? activeBarColor : inActiveBarColor),
-              height: barHeight,
+          if (index == totalLength - 1)
+            const SizedBox()
+          else
+            Flexible(
+              child: Container(
+                color: (index < activeIndex ? activeBarColor : inActiveBarColor),
+                height: barHeight,
+              ),
             ),
-          ),
         ],
       ),
     ];
