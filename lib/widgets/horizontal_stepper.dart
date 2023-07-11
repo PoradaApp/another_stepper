@@ -4,19 +4,17 @@ import 'package:flutter/material.dart';
 
 class HorizontalStepperItem extends StatelessWidget {
   /// Stepper Item to show horizontal stepper
-  const HorizontalStepperItem(
-      {Key? key,
-      required this.item,
-      required this.index,
-      required this.totalLength,
-      required this.activeIndex,
-      required this.isInverted,
-      required this.activeBarColor,
-      required this.inActiveBarColor,
-      required this.barHeight,
-      required this.iconHeight,
-      required this.iconWidth})
-      : super(key: key);
+  const HorizontalStepperItem({
+    Key? key,
+    required this.item,
+    required this.index,
+    required this.totalLength,
+    required this.activeIndex,
+    required this.isInverted,
+    required this.activeBarColor,
+    required this.inActiveBarColor,
+    required this.barHeight,
+  }) : super(key: key);
 
   /// Stepper item of type [StepperData] to inflate stepper with data
   final StepperData item;
@@ -41,12 +39,6 @@ class HorizontalStepperItem extends StatelessWidget {
 
   /// Bar height/thickness
   final double barHeight;
-
-  /// Height of [StepperData.iconWidget]
-  final double iconHeight;
-
-  /// Width of [StepperData.iconWidget]
-  final double iconWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -105,8 +97,8 @@ class HorizontalStepperItem extends StatelessWidget {
             index: index,
             item: item,
             totalLength: totalLength,
-            iconHeight: iconHeight,
-            iconWidth: iconWidth,
+            iconHeight: item.iconHeight,
+            iconWidth: item.iconWidth,
           ),
           if (index != totalLength - 1)
             Flexible(

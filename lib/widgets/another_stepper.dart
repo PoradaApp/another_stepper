@@ -95,8 +95,6 @@ class AnotherStepper extends StatelessWidget {
         inActiveBarColor: inActiveBarColor,
         activeBarColor: activeBarColor,
         barHeight: barThickness,
-        iconHeight: iconHeight,
-        iconWidth: iconWidth,
       );
     } else {
       return VerticalStepperItem(

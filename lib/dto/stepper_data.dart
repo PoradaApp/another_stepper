@@ -9,8 +9,12 @@ class StepperData {
 
   final Widget? iconWidget;
 
+  final double? iconHeight;
+
+  final double? iconWidth;
+
   /// Use the constructor of [StepperData] to pass the data needed.
-  StepperData({this.iconWidget, this.title, this.subtitle});
+  StepperData({this.iconWidget, this.title, this.subtitle, this.iconHeight, this.iconWidth});
 }
 
 class StepperText {
