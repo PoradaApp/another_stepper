@@ -21,6 +21,8 @@ class AnotherStepper extends StatelessWidget {
     this.scrollPhysics,
     this.iconHeight = 20,
     this.iconWidth = 20,
+    this.verticalLinePadding,
+    this.verticalOptionalContent,
   }) : super(key: key);
 
   /// Stepper [List] of type [StepperData] to render the Stepper on the UI with data
@@ -62,6 +64,10 @@ class AnotherStepper extends StatelessWidget {
 
   /// Scroll physics for listview if it is nested with some kind of Scrolling Widget
   final ScrollPhysics? scrollPhysics;
+
+  final EdgeInsets? verticalLinePadding;
+
+  final Widget? verticalOptionalContent;
 
   @override
   Widget build(BuildContext context) {
@@ -116,15 +122,19 @@ class AnotherStepper extends StatelessWidget {
                 barWidth: barThickness,
                 iconHeight: iconHeight,
                 iconWidth: iconWidth,
+                optional: verticalOptionalContent,
               ),
             )
             .expand((widget) => [
                   widget,
                   Expanded(
-                    child: Container(
-                      color: (widget.index < activeIndex ? activeBarColor : inActiveBarColor),
-                      height: barThickness,
-                      constraints: const BoxConstraints(minWidth: 0),
+                    child: Padding(
+                      padding: verticalLinePadding ?? EdgeInsets.zero,
+                      child: Container(
+                        color: (widget.index < activeIndex ? activeBarColor : inActiveBarColor),
+                        height: barThickness,
+                        constraints: const BoxConstraints(minHeight: 0, maxWidth: 1, minWidth: 1),
+                      ),
                     ),
                   ),
                 ])
