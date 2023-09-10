@@ -98,13 +98,6 @@ class AnotherStepper extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            if (!isFirstItem)
-              Expanded(
-                child: Container(
-                  color: (index <= activeIndex ? activeBarColor : inActiveBarColor),
-                  height: barThickness,
-                ),
-              ),
             HorizontalStepperItem(
               index: index,
               item: stepperList[index],
@@ -115,13 +108,14 @@ class AnotherStepper extends StatelessWidget {
               activeBarColor: activeBarColor,
               barHeight: barThickness,
             ),
-            /* if (!isLastItem)
-              Flexible(
+            if (index != stepperList.length - 1) // Add space after each item, except for the last item
+              Expanded(
                 child: Container(
                   color: (index < activeIndex ? activeBarColor : inActiveBarColor),
                   height: barThickness,
+                  constraints: const BoxConstraints(maxWidth: 0),
                 ),
-              ), */
+              ),
           ],
         ),
       );
