@@ -51,36 +51,7 @@ class HorizontalStepperItem extends StatelessWidget {
 
   List<Widget> getChildren() {
     return [
-      if (item.title != null) ...[
-        SizedBox(
-          child: Text(
-            item.title!.text,
-            textAlign: TextAlign.center,
-            style: item.title!.textStyle ??
-                const TextStyle(
-                  fontSize: 14,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
-        ),
-        const SizedBox(height: 4),
-      ],
-      if (item.subtitle != null) ...[
-        SizedBox(
-          child: Text(
-            item.subtitle!.text,
-            textAlign: TextAlign.center,
-            style: item.subtitle!.textStyle ??
-                const TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w500,
-                ),
-          ),
-        ),
-        const SizedBox(height: 8),
-      ],
+      item.optionalContent ?? const SizedBox(),
       Row(
         children: [
           DotProvider(

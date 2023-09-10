@@ -19,10 +19,6 @@ class AnotherStepper extends StatelessWidget {
     this.inActiveBarColor = Colors.grey,
     this.barThickness = 2,
     this.scrollPhysics,
-    this.iconHeight = 20,
-    this.iconWidth = 20,
-    this.verticalLinePadding,
-    this.verticalOptionalContent,
   }) : super(key: key);
 
   /// Stepper [List] of type [StepperData] to render the Stepper on the UI with data
@@ -52,22 +48,8 @@ class AnotherStepper extends StatelessWidget {
   /// Bar width/thickness/height
   final double barThickness;
 
-  /// Height of [StepperData.iconWidget]
-  ///
-  /// Default value = 20
-  final double iconHeight;
-
-  /// Width of [StepperData.iconWidget]
-  ///
-  /// Default value = 20
-  final double iconWidth;
-
   /// Scroll physics for listview if it is nested with some kind of Scrolling Widget
   final ScrollPhysics? scrollPhysics;
-
-  final EdgeInsets? verticalLinePadding;
-
-  final Widget? verticalOptionalContent;
 
   @override
   Widget build(BuildContext context) {
@@ -114,23 +96,21 @@ class AnotherStepper extends StatelessWidget {
             .map(
               (i) => VerticalStepperItem(
                 index: i,
-                item: stepperList[i],
+                data: stepperList[i],
                 totalLength: stepperList.length,
                 activeIndex: activeIndex,
                 isInverted: inverted,
                 inActiveBarColor: inActiveBarColor,
                 activeBarColor: activeBarColor,
                 barWidth: barThickness,
-                iconHeight: iconHeight,
-                iconWidth: iconWidth,
-                optional: verticalOptionalContent,
+                optional: stepperList[i].optionalContent,
               ),
             )
             .expand((widget) => [
                   widget,
                   Expanded(
                     child: Padding(
-                      padding: verticalLinePadding ?? EdgeInsets.zero,
+                      padding: widget.data.verticalLinePadding ?? EdgeInsets.zero,
                       child: Container(
                         color: (widget.index < activeIndex ? activeBarColor : inActiveBarColor),
                         height: barThickness,

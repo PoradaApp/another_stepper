@@ -6,7 +6,7 @@ class VerticalStepperItem extends StatelessWidget {
   /// Stepper Item to show vertical stepper
   const VerticalStepperItem({
     Key? key,
-    required this.item,
+    required this.data,
     required this.index,
     required this.totalLength,
     required this.activeIndex,
@@ -14,13 +14,11 @@ class VerticalStepperItem extends StatelessWidget {
     required this.activeBarColor,
     required this.inActiveBarColor,
     required this.barWidth,
-    required this.iconHeight,
-    required this.iconWidth,
     this.optional,
   }) : super(key: key);
 
   /// Stepper item of type [StepperData] to inflate stepper with data
-  final StepperData item;
+  final StepperData data;
 
   /// Index at which the item is present
   final int index;
@@ -43,12 +41,6 @@ class VerticalStepperItem extends StatelessWidget {
   /// Bar width/thickness
   final double barWidth;
 
-  /// Height of [StepperData.iconWidget]
-  final double iconHeight;
-
-  /// Width of [StepperData.iconWidget]
-  final double iconWidth;
-
   final Widget? optional;
 
   @override
@@ -63,10 +55,10 @@ class VerticalStepperItem extends StatelessWidget {
       DotProvider(
         activeIndex: activeIndex,
         index: index,
-        item: item,
+        item: data,
         totalLength: totalLength,
-        iconHeight: iconHeight,
-        iconWidth: iconWidth,
+        iconHeight: data.iconHeight,
+        iconWidth: data.iconWidth,
       ),
       Expanded(child: optional ?? const SizedBox()),
     ];
