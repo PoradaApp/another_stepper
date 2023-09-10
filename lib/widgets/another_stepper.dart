@@ -113,7 +113,7 @@ class AnotherStepper extends StatelessWidget {
               if (index != stepperList.length - 1) // Add space after each item, except for the last item
                 Expanded(
                   child: Container(
-                    color: (index < activeIndex ? activeBarColor : inActiveBarColor),
+                    color: Colors.green, //(index < activeIndex ? activeBarColor : inActiveBarColor),
                     height: barThickness,
                     constraints: const BoxConstraints(minWidth: 0),
                   ),
