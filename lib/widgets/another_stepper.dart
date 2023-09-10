@@ -88,7 +88,7 @@ class AnotherStepper extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (!isFirstItem)
-            Expanded(
+            Flexible(
               child: Container(
                 color: (index <= activeIndex ? activeBarColor : inActiveBarColor),
                 height: barThickness,
@@ -105,7 +105,7 @@ class AnotherStepper extends StatelessWidget {
             barHeight: barThickness,
           ),
           if (!isLastItem)
-            Expanded(
+            Flexible(
               child: Container(
                 color: (index < activeIndex ? activeBarColor : inActiveBarColor),
                 height: barThickness,
@@ -118,7 +118,7 @@ class AnotherStepper extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (!isFirstItem)
-            Expanded(
+            Flexible(
               child: Container(
                 color: (index <= activeIndex ? activeBarColor : inActiveBarColor),
                 width: barThickness,
@@ -137,7 +137,7 @@ class AnotherStepper extends StatelessWidget {
             iconWidth: iconWidth,
           ),
           if (!isLastItem)
-            Expanded(
+            Flexible(
               child: Container(
                 color: (index < activeIndex ? activeBarColor : inActiveBarColor),
                 width: barThickness,
@@ -147,32 +147,4 @@ class AnotherStepper extends StatelessWidget {
       );
     }
   }
-
-  /* Widget _getPreferredStepper(BuildContext context, {required int index}) {
-    if (stepperDirection == Axis.horizontal) {
-      return HorizontalStepperItem(
-        index: index,
-        item: stepperList[index],
-        totalLength: stepperList.length,
-        activeIndex: activeIndex,
-        isInverted: inverted,
-        inActiveBarColor: inActiveBarColor,
-        activeBarColor: activeBarColor,
-        barHeight: barThickness,
-      );
-    } else {
-      return VerticalStepperItem(
-        index: index,
-        item: stepperList[index],
-        totalLength: stepperList.length,
-        activeIndex: activeIndex,
-        isInverted: inverted,
-        inActiveBarColor: inActiveBarColor,
-        activeBarColor: activeBarColor,
-        barWidth: barThickness,
-        iconHeight: iconHeight,
-        iconWidth: iconWidth,
-      );
-    }
-  } */
 }
