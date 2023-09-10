@@ -72,10 +72,17 @@ class AnotherStepper extends StatelessWidget {
           crossAxisAlignment == CrossAxisAlignment.end ? CrossAxisAlignment.start : CrossAxisAlignment.end;
     }
     final Iterable<int> iterable = Iterable<int>.generate(stepperList.length);
-    return Flex(
+    /* return Flex(
       crossAxisAlignment: crossAxisAlignment,
       direction: stepperDirection,
       children: iterable.map((index) => _buildStepper(context, index: index)).toList(),
+    ); */
+    return ListView(
+      scrollDirection: stepperDirection,
+      physics: scrollPhysics,
+      children: [
+        for (int index in iterable) _buildStepper(context, index: index),
+      ],
     );
   }
 
@@ -91,7 +98,6 @@ class AnotherStepper extends StatelessWidget {
         width: stepperDirection == Axis.vertical ? barThickness : null,
       ),
     );
-
     final stepperItem = stepperDirection == Axis.horizontal
         ? HorizontalStepperItem(
             index: index,
@@ -134,6 +140,7 @@ class AnotherStepper extends StatelessWidget {
       ],
     );
   }
+}
 
   /*  Widget _buildStepper(BuildContext context, {required int index}) {
     final bool isFirstItem = index == 0;
@@ -203,4 +210,4 @@ class AnotherStepper extends StatelessWidget {
       );
     }
   } */
-}
+
