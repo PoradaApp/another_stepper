@@ -95,28 +95,31 @@ class AnotherStepper extends StatelessWidget {
 
     if (stepperDirection == Axis.horizontal) {
       return Expanded(
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            HorizontalStepperItem(
-              index: index,
-              item: stepperList[index],
-              totalLength: stepperList.length,
-              activeIndex: activeIndex,
-              isInverted: inverted,
-              inActiveBarColor: inActiveBarColor,
-              activeBarColor: activeBarColor,
-              barHeight: barThickness,
-            ),
-            if (index != stepperList.length - 1) // Add space after each item, except for the last item
-              Expanded(
-                child: Container(
-                  color: (index < activeIndex ? activeBarColor : inActiveBarColor),
-                  height: barThickness,
-                  constraints: const BoxConstraints(minWidth: 0),
-                ),
+        child: Container(
+          color: Colors.blue,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              HorizontalStepperItem(
+                index: index,
+                item: stepperList[index],
+                totalLength: stepperList.length,
+                activeIndex: activeIndex,
+                isInverted: inverted,
+                inActiveBarColor: inActiveBarColor,
+                activeBarColor: activeBarColor,
+                barHeight: barThickness,
               ),
-          ],
+              if (index != stepperList.length - 1) // Add space after each item, except for the last item
+                Expanded(
+                  child: Container(
+                    color: (index < activeIndex ? activeBarColor : inActiveBarColor),
+                    height: barThickness,
+                    constraints: const BoxConstraints(minWidth: 0),
+                  ),
+                ),
+            ],
+          ),
         ),
       );
     } else {
