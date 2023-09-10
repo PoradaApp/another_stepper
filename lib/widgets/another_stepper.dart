@@ -77,6 +77,7 @@ class AnotherStepper extends StatelessWidget {
         child: Container(
           color: Colors.blue,
           child: ListView.separated(
+            shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, i) {
               return HorizontalStepperItem(
