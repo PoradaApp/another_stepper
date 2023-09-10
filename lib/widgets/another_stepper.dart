@@ -108,14 +108,16 @@ class AnotherStepper extends StatelessWidget {
             )
             .expand((widget) => [
                   widget,
-                  SizedBox(
-                    width: widget.data.iconWidth,
-                    child: Padding(
-                      padding: widget.data.verticalLinePadding ?? EdgeInsets.zero,
-                      child: Container(
-                        color: (widget.index < activeIndex ? activeBarColor : inActiveBarColor),
-                        height: barThickness,
-                        constraints: const BoxConstraints(minHeight: 0, maxWidth: 1, minWidth: 1),
+                  Expanded(
+                    child: SizedBox(
+                      width: widget.data.iconWidth,
+                      child: Padding(
+                        padding: widget.data.verticalLinePadding ?? EdgeInsets.zero,
+                        child: Container(
+                          color: (widget.index < activeIndex ? activeBarColor : inActiveBarColor),
+                          height: barThickness,
+                          constraints: const BoxConstraints(minHeight: 0, maxWidth: 1, minWidth: 1),
+                        ),
                       ),
                     ),
                   ),
