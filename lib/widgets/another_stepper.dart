@@ -108,7 +108,8 @@ class AnotherStepper extends StatelessWidget {
             )
             .expand((widget) => [
                   widget,
-                  Expanded(
+                  SizedBox(
+                    width: widget.data.iconWidth,
                     child: Padding(
                       padding: widget.data.verticalLinePadding ?? EdgeInsets.zero,
                       child: Container(
