@@ -73,8 +73,36 @@ class AnotherStepper extends StatelessWidget {
     }
     final Iterable<int> iterable = Iterable<int>.generate(stepperList.length);
     if (stepperDirection == Axis.horizontal) {
-      return Row(
-        children: iterable.map((index) => _buildStepper(context, index: index)).toList(),
+      return Expanded(
+        child: Container(
+          color: Colors.blue,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              for (int i = 0; i < stepperList.length; i++)
+                Row(
+                  children: [
+                    HorizontalStepperItem(
+                      index: i,
+                      item: stepperList[i],
+                      totalLength: stepperList.length,
+                      activeIndex: activeIndex,
+                      isInverted: inverted,
+                      inActiveBarColor: inActiveBarColor,
+                      activeBarColor: activeBarColor,
+                      barHeight: barThickness,
+                    ),
+                    if (i != stepperList.length - 1) // Add space after each item, except for the last item
+                      Container(
+                        color: Colors.green, //(index < activeIndex ? activeBarColor : inActiveBarColor),
+                        height: barThickness,
+                        constraints: const BoxConstraints(minWidth: 0),
+                      ),
+                  ],
+                ),
+            ],
+          ),
+        ),
       );
     } else {
       return Column(
@@ -100,23 +128,26 @@ class AnotherStepper extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
-              HorizontalStepperItem(
-                index: index,
-                item: stepperList[index],
-                totalLength: stepperList.length,
-                activeIndex: activeIndex,
-                isInverted: inverted,
-                inActiveBarColor: inActiveBarColor,
-                activeBarColor: activeBarColor,
-                barHeight: barThickness,
-              ),
-              if (index != stepperList.length - 1) // Add space after each item, except for the last item
-                Expanded(
-                  child: Container(
-                    color: Colors.green, //(index < activeIndex ? activeBarColor : inActiveBarColor),
-                    height: barThickness,
-                    constraints: const BoxConstraints(minWidth: 0),
-                  ),
+              for (int i = 0; i < stepperList.length; i++)
+                Row(
+                  children: [
+                    HorizontalStepperItem(
+                      index: i,
+                      item: stepperList[i],
+                      totalLength: stepperList.length,
+                      activeIndex: activeIndex,
+                      isInverted: inverted,
+                      inActiveBarColor: inActiveBarColor,
+                      activeBarColor: activeBarColor,
+                      barHeight: barThickness,
+                    ),
+                    if (i != stepperList.length - 1) // Add space after each item, except for the last item
+                      Container(
+                        color: Colors.green, //(index < activeIndex ? activeBarColor : inActiveBarColor),
+                        height: barThickness,
+                        constraints: const BoxConstraints(minWidth: 0),
+                      ),
+                  ],
                 ),
             ],
           ),
