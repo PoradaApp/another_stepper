@@ -51,7 +51,6 @@ class HorizontalStepperItem extends StatelessWidget {
 
   List<Widget> getChildren() {
     return [
-      item.optionalContent ?? const SizedBox(),
       Row(
         children: [
           DotProvider(
