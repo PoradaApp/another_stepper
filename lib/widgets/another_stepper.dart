@@ -74,24 +74,21 @@ class AnotherStepper extends StatelessWidget {
     final Iterable<int> iterable = Iterable<int>.generate(stepperList.length);
     if (stepperDirection == Axis.horizontal) {
       return Row(
-        children: stepperList.asMap().entries.map((entry) {
-          final int i = entry.key;
-          final bool isLastItem = i == stepperList.length - 1;
-          return Flexible(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                HorizontalStepperItem(
-                  index: i,
-                  item: stepperList[i],
-                  totalLength: stepperList.length,
-                  activeIndex: activeIndex,
-                  isInverted: inverted,
-                  inActiveBarColor: inActiveBarColor,
-                  activeBarColor: activeBarColor,
-                  barHeight: barThickness,
-                ),
-                if (!isLastItem)
+        children: iterable
+            .map(
+              (i) => HorizontalStepperItem(
+                index: i,
+                item: stepperList[i],
+                totalLength: stepperList.length,
+                activeIndex: activeIndex,
+                isInverted: inverted,
+                inActiveBarColor: inActiveBarColor,
+                activeBarColor: activeBarColor,
+                barHeight: barThickness,
+              ),
+            )
+            .expand((widget) => [
+                  widget,
                   Expanded(
                     child: Container(
                       color: Colors.green,
@@ -99,10 +96,9 @@ class AnotherStepper extends StatelessWidget {
                       constraints: const BoxConstraints(minWidth: 0),
                     ),
                   ),
-              ],
-            ),
-          );
-        }).toList(),
+                ])
+            .toList()
+          ..removeLast(),
       );
     } else {
       return Column(
