@@ -82,8 +82,10 @@ class AnotherStepper extends StatelessWidget {
   Widget _buildStepper(BuildContext context, {required int index}) {
     final bool isFirstItem = index == 0;
     final bool isLastItem = index == stepperList.length - 1;
+
     if (stepperDirection == Axis.horizontal) {
       return Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           if (!isFirstItem)
             Flexible(
@@ -113,6 +115,7 @@ class AnotherStepper extends StatelessWidget {
       );
     } else {
       return Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           if (!isFirstItem)
             Flexible(
