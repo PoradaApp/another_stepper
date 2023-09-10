@@ -113,7 +113,7 @@ class AnotherStepper extends StatelessWidget {
                 child: Container(
                   color: (index < activeIndex ? activeBarColor : inActiveBarColor),
                   height: barThickness,
-                  constraints: const BoxConstraints(maxWidth: 0),
+                  constraints: const BoxConstraints(minWidth: 0),
                 ),
               ),
           ],
