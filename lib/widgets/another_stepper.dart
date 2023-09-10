@@ -76,31 +76,28 @@ class AnotherStepper extends StatelessWidget {
       return Expanded(
         child: Container(
           color: Colors.blue,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              for (int i = 0; i < stepperList.length; i++)
-                Row(
-                  children: [
-                    HorizontalStepperItem(
-                      index: i,
-                      item: stepperList[i],
-                      totalLength: stepperList.length,
-                      activeIndex: activeIndex,
-                      isInverted: inverted,
-                      inActiveBarColor: inActiveBarColor,
-                      activeBarColor: activeBarColor,
-                      barHeight: barThickness,
-                    ),
-                    if (i != stepperList.length - 1) // Add space after each item, except for the last item
-                      Container(
-                        color: Colors.green, //(index < activeIndex ? activeBarColor : inActiveBarColor),
-                        height: barThickness,
-                        constraints: const BoxConstraints(minWidth: 0),
-                      ),
-                  ],
-                ),
-            ],
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, i) {
+              return HorizontalStepperItem(
+                index: i,
+                item: stepperList[i],
+                totalLength: stepperList.length,
+                activeIndex: activeIndex,
+                isInverted: inverted,
+                inActiveBarColor: inActiveBarColor,
+                activeBarColor: activeBarColor,
+                barHeight: barThickness,
+              );
+            },
+            separatorBuilder: (context, i) {
+              return Container(
+                color: Colors.green,
+                height: barThickness,
+                constraints: const BoxConstraints.expand(),
+              );
+            },
+            itemCount: stepperList.length,
           ),
         ),
       );
