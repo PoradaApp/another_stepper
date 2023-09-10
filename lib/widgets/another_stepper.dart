@@ -76,29 +76,33 @@ class AnotherStepper extends StatelessWidget {
       return Expanded(
         child: Container(
           color: Colors.blue,
-          child: ListView.separated(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, i) {
-              return HorizontalStepperItem(
-                index: i,
-                item: stepperList[i],
-                totalLength: stepperList.length,
-                activeIndex: activeIndex,
-                isInverted: inverted,
-                inActiveBarColor: inActiveBarColor,
-                activeBarColor: activeBarColor,
-                barHeight: barThickness,
-              );
-            },
-            separatorBuilder: (context, i) {
-              return Container(
-                color: Colors.green,
-                height: barThickness,
-                constraints: const BoxConstraints.expand(),
-              );
-            },
-            itemCount: stepperList.length,
+          child: Row(
+            children: [
+              for (int i = 0; i < stepperList.length; i++) ...[
+                Expanded(
+                  child: Row(
+                    children: [
+                      HorizontalStepperItem(
+                        index: i,
+                        item: stepperList[i],
+                        totalLength: stepperList.length,
+                        activeIndex: activeIndex,
+                        isInverted: inverted,
+                        inActiveBarColor: inActiveBarColor,
+                        activeBarColor: activeBarColor,
+                        barHeight: barThickness,
+                      ),
+                    ],
+                  ),
+                ),
+                if (i != stepperList.length - 1)
+                  Container(
+                    color: Colors.green, //(index < activeIndex ? activeBarColor : inActiveBarColor),
+                    height: barThickness,
+                    constraints: const BoxConstraints(minWidth: 0),
+                  ),
+              ],
+            ],
           ),
         ),
       );
