@@ -88,7 +88,7 @@ class AnotherStepper extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (!isFirstItem)
-            Flexible(
+            Expanded(
               child: Container(
                 color: (index <= activeIndex ? activeBarColor : inActiveBarColor),
                 height: barThickness,
@@ -105,7 +105,7 @@ class AnotherStepper extends StatelessWidget {
             barHeight: barThickness,
           ),
           if (!isLastItem)
-            Flexible(
+            Expanded(
               child: Container(
                 color: (index < activeIndex ? activeBarColor : inActiveBarColor),
                 height: barThickness,
@@ -118,7 +118,7 @@ class AnotherStepper extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (!isFirstItem)
-            Flexible(
+            Expanded(
               child: Container(
                 color: (index <= activeIndex ? activeBarColor : inActiveBarColor),
                 width: barThickness,
@@ -137,7 +137,7 @@ class AnotherStepper extends StatelessWidget {
             iconWidth: iconWidth,
           ),
           if (!isLastItem)
-            Flexible(
+            Expanded(
               child: Container(
                 color: (index < activeIndex ? activeBarColor : inActiveBarColor),
                 width: barThickness,
