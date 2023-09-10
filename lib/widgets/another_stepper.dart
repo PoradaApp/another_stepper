@@ -109,6 +109,7 @@ class AnotherStepper extends StatelessWidget {
     } else {
       return Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: iterable
             .map(
               (i) => VerticalStepperItem(

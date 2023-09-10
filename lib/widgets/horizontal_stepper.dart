@@ -83,13 +83,6 @@ class HorizontalStepperItem extends StatelessWidget {
       ],
       Row(
         children: [
-          /*  if (index != 0)
-            Flexible(
-              child: Container(
-                color: (index <= activeIndex ? activeBarColor : inActiveBarColor),
-                height: barHeight,
-              ),
-            ), */
           DotProvider(
             activeIndex: activeIndex,
             index: index,
@@ -98,13 +91,6 @@ class HorizontalStepperItem extends StatelessWidget {
             iconHeight: item.iconHeight,
             iconWidth: item.iconWidth,
           ),
-          /*  if (index != totalLength - 1)
-            Flexible(
-              child: Container(
-                color: (index < activeIndex ? activeBarColor : inActiveBarColor),
-                height: barHeight,
-              ),
-            ), */
         ],
       ),
     ];
