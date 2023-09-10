@@ -94,34 +94,36 @@ class AnotherStepper extends StatelessWidget {
     final bool isLastItem = index == stepperList.length - 1;
 
     if (stepperDirection == Axis.horizontal) {
-      return Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          if (!isFirstItem)
-            Expanded(
-              child: Container(
-                color: (index <= activeIndex ? activeBarColor : inActiveBarColor),
-                height: barThickness,
+      return Expanded(
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            if (!isFirstItem)
+              Expanded(
+                child: Container(
+                  color: (index <= activeIndex ? activeBarColor : inActiveBarColor),
+                  height: barThickness,
+                ),
               ),
+            HorizontalStepperItem(
+              index: index,
+              item: stepperList[index],
+              totalLength: stepperList.length,
+              activeIndex: activeIndex,
+              isInverted: inverted,
+              inActiveBarColor: inActiveBarColor,
+              activeBarColor: activeBarColor,
+              barHeight: barThickness,
             ),
-          HorizontalStepperItem(
-            index: index,
-            item: stepperList[index],
-            totalLength: stepperList.length,
-            activeIndex: activeIndex,
-            isInverted: inverted,
-            inActiveBarColor: inActiveBarColor,
-            activeBarColor: activeBarColor,
-            barHeight: barThickness,
-          ),
-          /* if (!isLastItem)
-            Flexible(
-              child: Container(
-                color: (index < activeIndex ? activeBarColor : inActiveBarColor),
-                height: barThickness,
-              ),
-            ), */
-        ],
+            /* if (!isLastItem)
+              Flexible(
+                child: Container(
+                  color: (index < activeIndex ? activeBarColor : inActiveBarColor),
+                  height: barThickness,
+                ),
+              ), */
+          ],
+        ),
       );
     } else {
       return Expanded(
