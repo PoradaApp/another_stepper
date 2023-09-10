@@ -11,7 +11,7 @@ class AnotherStepper extends StatelessWidget {
   /// as vertical steppers just by providing [Axis] in the [stepperDirection] parameter.
   const AnotherStepper({
     Key? key,
-    required this.stepperList,
+    required this.list,
     this.activeIndex = 0,
     required this.stepperDirection,
     this.inverted = false,
@@ -22,7 +22,7 @@ class AnotherStepper extends StatelessWidget {
   }) : super(key: key);
 
   /// Stepper [List] of type [StepperData] to render the Stepper on the UI with data
-  final List<StepperData> stepperList;
+  final List<StepperData> list;
 
   /// Active index - till which [index] the stepper will be highlighted
   ///
@@ -59,15 +59,15 @@ class AnotherStepper extends StatelessWidget {
       crossAxisAlignment =
           crossAxisAlignment == CrossAxisAlignment.end ? CrossAxisAlignment.start : CrossAxisAlignment.end;
     }
-    final Iterable<int> iterable = Iterable<int>.generate(stepperList.length);
+    final Iterable<int> iterable = Iterable<int>.generate(list.length);
     if (stepperDirection == Axis.horizontal) {
       return Row(
         children: iterable
             .map(
               (i) => HorizontalStepperItem(
                 index: i,
-                data: stepperList[i],
-                totalLength: stepperList.length,
+                data: list[i],
+                totalLength: list.length,
                 activeIndex: activeIndex,
                 isInverted: inverted,
                 inActiveBarColor: inActiveBarColor,
@@ -99,14 +99,14 @@ class AnotherStepper extends StatelessWidget {
             .map(
               (i) => VerticalStepperItem(
                 index: i,
-                data: stepperList[i],
-                totalLength: stepperList.length,
+                data: list[i],
+                totalLength: list.length,
                 activeIndex: activeIndex,
                 isInverted: inverted,
                 inActiveBarColor: inActiveBarColor,
                 activeBarColor: activeBarColor,
                 barWidth: barThickness,
-                optional: stepperList[i].optionalContent,
+                optional: list[i].optionalContent,
               ),
             )
             .expand((widget) => [
