@@ -91,7 +91,7 @@ class AnotherStepper extends StatelessWidget {
                   widget,
                   Expanded(
                     child: Container(
-                      color: Colors.green,
+                      color: (widget.index < activeIndex ? activeBarColor : inActiveBarColor),
                       height: barThickness,
                       constraints: const BoxConstraints(minWidth: 0),
                     ),
@@ -103,85 +103,33 @@ class AnotherStepper extends StatelessWidget {
     } else {
       return Column(
         mainAxisSize: MainAxisSize.min,
-        children: iterable.map((index) => _buildStepper(context, index: index)).toList(),
-      );
-    }
-    /*  return Flex(
-      crossAxisAlignment: crossAxisAlignment,
-      direction: stepperDirection,
-      children: iterable.map((index) => _buildStepper(context, index: index)).toList(),
-    ); */
-  }
-
-  Widget _buildStepper(BuildContext context, {required int index}) {
-    final bool isFirstItem = index == 0;
-    final bool isLastItem = index == stepperList.length - 1;
-
-    if (stepperDirection == Axis.horizontal) {
-      return Expanded(
-        child: Container(
-          color: Colors.blue,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              for (int i = 0; i < stepperList.length; i++)
-                Row(
-                  children: [
-                    HorizontalStepperItem(
-                      index: i,
-                      item: stepperList[i],
-                      totalLength: stepperList.length,
-                      activeIndex: activeIndex,
-                      isInverted: inverted,
-                      inActiveBarColor: inActiveBarColor,
-                      activeBarColor: activeBarColor,
-                      barHeight: barThickness,
+        children: iterable
+            .map(
+              (i) => VerticalStepperItem(
+                index: i,
+                item: stepperList[i],
+                totalLength: stepperList.length,
+                activeIndex: activeIndex,
+                isInverted: inverted,
+                inActiveBarColor: inActiveBarColor,
+                activeBarColor: activeBarColor,
+                barWidth: barThickness,
+                iconHeight: iconHeight,
+                iconWidth: iconWidth,
+              ),
+            )
+            .expand((widget) => [
+                  widget,
+                  Expanded(
+                    child: Container(
+                      color: (widget.index < activeIndex ? activeBarColor : inActiveBarColor),
+                      height: barThickness,
+                      constraints: const BoxConstraints(minWidth: 0),
                     ),
-                    if (i != stepperList.length - 1) // Add space after each item, except for the last item
-                      Container(
-                        color: Colors.green, //(index < activeIndex ? activeBarColor : inActiveBarColor),
-                        height: barThickness,
-                        constraints: const BoxConstraints(minWidth: 0),
-                      ),
-                  ],
-                ),
-            ],
-          ),
-        ),
-      );
-    } else {
-      return Expanded(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (!isFirstItem)
-              Flexible(
-                child: Container(
-                  color: (index <= activeIndex ? activeBarColor : inActiveBarColor),
-                  width: barThickness,
-                ),
-              ),
-            VerticalStepperItem(
-              index: index,
-              item: stepperList[index],
-              totalLength: stepperList.length,
-              activeIndex: activeIndex,
-              isInverted: inverted,
-              inActiveBarColor: inActiveBarColor,
-              activeBarColor: activeBarColor,
-              barWidth: barThickness,
-              iconHeight: iconHeight,
-              iconWidth: iconWidth,
-            ),
-            if (!isLastItem)
-              Flexible(
-                child: Container(
-                  color: (index < activeIndex ? activeBarColor : inActiveBarColor),
-                  width: barThickness,
-                ),
-              ),
-          ],
-        ),
+                  ),
+                ])
+            .toList()
+          ..removeLast(),
       );
     }
   }

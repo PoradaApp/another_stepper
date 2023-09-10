@@ -57,27 +57,13 @@ class VerticalStepperItem extends StatelessWidget {
 
   List<Widget> getChildren() {
     return [
-      Column(
-        children: [
-          /* Container(
-            color: index == 0 ? Colors.transparent : (index <= activeIndex ? activeBarColor : inActiveBarColor),
-            width: barWidth,
-          ), */
-          DotProvider(
-            activeIndex: activeIndex,
-            index: index,
-            item: item,
-            totalLength: totalLength,
-            iconHeight: iconHeight,
-            iconWidth: iconWidth,
-          ),
-          /*  Container(
-            color: index == totalLength - 1
-                ? Colors.transparent
-                : (index < activeIndex ? activeBarColor : inActiveBarColor),
-            width: barWidth,
-          ), */
-        ],
+      DotProvider(
+        activeIndex: activeIndex,
+        index: index,
+        item: item,
+        totalLength: totalLength,
+        iconHeight: iconHeight,
+        iconWidth: iconWidth,
       ),
       const SizedBox(width: 8),
       Expanded(
