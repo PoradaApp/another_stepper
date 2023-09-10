@@ -12,7 +12,6 @@ class AnotherStepper extends StatelessWidget {
   const AnotherStepper({
     Key? key,
     required this.stepperList,
-    this.verticalGap = 40,
     this.activeIndex = 0,
     required this.stepperDirection,
     this.inverted = false,
@@ -22,15 +21,10 @@ class AnotherStepper extends StatelessWidget {
     this.scrollPhysics,
     this.iconHeight = 20,
     this.iconWidth = 20,
-  })  : assert(verticalGap >= 0),
-        super(key: key);
+  }) : super(key: key);
 
   /// Stepper [List] of type [StepperData] to render the Stepper on the UI with data
   final List<StepperData> stepperList;
-
-  /// Gap between the items in the stepper, Default = 40
-  /// (Use it to give fixed height of stepper bar when using [Axis.vertical])
-  final double verticalGap;
 
   /// Active index - till which [index] the stepper will be highlighted
   ///
@@ -71,20 +65,87 @@ class AnotherStepper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var crossAxisAlign = stepperDirection == Axis.horizontal ? CrossAxisAlignment.end : CrossAxisAlignment.start;
+    var crossAxisAlignment = stepperDirection == Axis.horizontal ? CrossAxisAlignment.end : CrossAxisAlignment.start;
     if (inverted) {
       // invert Alignment in case of [Axis.vertical]
-      crossAxisAlign = crossAxisAlign == CrossAxisAlignment.end ? CrossAxisAlignment.start : CrossAxisAlignment.end;
+      crossAxisAlignment =
+          crossAxisAlignment == CrossAxisAlignment.end ? CrossAxisAlignment.start : CrossAxisAlignment.end;
     }
     final Iterable<int> iterable = Iterable<int>.generate(stepperList.length);
     return Flex(
-      crossAxisAlignment: crossAxisAlign,
+      crossAxisAlignment: crossAxisAlignment,
       direction: stepperDirection,
-      children: iterable.map((index) => _getPreferredStepper(context, index: index)).toList(),
+      children: iterable.map((index) => _buildStepper(context, index: index)).toList(),
     );
   }
 
-  Widget _getPreferredStepper(BuildContext context, {required int index}) {
+  Widget _buildStepper(BuildContext context, {required int index}) {
+    final bool isFirstItem = index == 0;
+    final bool isLastItem = index == stepperList.length - 1;
+    if (stepperDirection == Axis.horizontal) {
+      return Row(
+        children: [
+          if (!isFirstItem)
+            Flexible(
+              child: Container(
+                color: (index <= activeIndex ? activeBarColor : inActiveBarColor),
+                height: barThickness,
+              ),
+            ),
+          HorizontalStepperItem(
+            index: index,
+            item: stepperList[index],
+            totalLength: stepperList.length,
+            activeIndex: activeIndex,
+            isInverted: inverted,
+            inActiveBarColor: inActiveBarColor,
+            activeBarColor: activeBarColor,
+            barHeight: barThickness,
+          ),
+          if (!isLastItem)
+            Flexible(
+              child: Container(
+                color: (index < activeIndex ? activeBarColor : inActiveBarColor),
+                height: barThickness,
+              ),
+            ),
+        ],
+      );
+    } else {
+      return Column(
+        children: [
+          if (!isFirstItem)
+            Flexible(
+              child: Container(
+                color: (index <= activeIndex ? activeBarColor : inActiveBarColor),
+                width: barThickness,
+              ),
+            ),
+          VerticalStepperItem(
+            index: index,
+            item: stepperList[index],
+            totalLength: stepperList.length,
+            activeIndex: activeIndex,
+            isInverted: inverted,
+            inActiveBarColor: inActiveBarColor,
+            activeBarColor: activeBarColor,
+            barWidth: barThickness,
+            iconHeight: iconHeight,
+            iconWidth: iconWidth,
+          ),
+          if (!isLastItem)
+            Flexible(
+              child: Container(
+                color: (index < activeIndex ? activeBarColor : inActiveBarColor),
+                width: barThickness,
+              ),
+            ),
+        ],
+      );
+    }
+  }
+
+  /* Widget _getPreferredStepper(BuildContext context, {required int index}) {
     if (stepperDirection == Axis.horizontal) {
       return HorizontalStepperItem(
         index: index,
@@ -101,7 +162,6 @@ class AnotherStepper extends StatelessWidget {
         index: index,
         item: stepperList[index],
         totalLength: stepperList.length,
-        gap: verticalGap,
         activeIndex: activeIndex,
         isInverted: inverted,
         inActiveBarColor: inActiveBarColor,
@@ -111,5 +171,5 @@ class AnotherStepper extends StatelessWidget {
         iconWidth: iconWidth,
       );
     }
-  }
+  } */
 }

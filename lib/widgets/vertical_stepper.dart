@@ -4,20 +4,19 @@ import 'package:flutter/material.dart';
 
 class VerticalStepperItem extends StatelessWidget {
   /// Stepper Item to show vertical stepper
-  const VerticalStepperItem(
-      {Key? key,
-      required this.item,
-      required this.index,
-      required this.totalLength,
-      required this.gap,
-      required this.activeIndex,
-      required this.isInverted,
-      required this.activeBarColor,
-      required this.inActiveBarColor,
-      required this.barWidth,
-      required this.iconHeight,
-      required this.iconWidth})
-      : super(key: key);
+  const VerticalStepperItem({
+    Key? key,
+    required this.item,
+    required this.index,
+    required this.totalLength,
+    required this.activeIndex,
+    required this.isInverted,
+    required this.activeBarColor,
+    required this.inActiveBarColor,
+    required this.barWidth,
+    required this.iconHeight,
+    required this.iconWidth,
+  }) : super(key: key);
 
   /// Stepper item of type [StepperData] to inflate stepper with data
   final StepperData item;
@@ -30,9 +29,6 @@ class VerticalStepperItem extends StatelessWidget {
 
   /// Active index which needs to be highlighted and before that
   final int activeIndex;
-
-  /// Gap between the items in the stepper
-  final double gap;
 
   /// Inverts the stepper with text that is being used
   final bool isInverted;
@@ -63,11 +59,10 @@ class VerticalStepperItem extends StatelessWidget {
     return [
       Column(
         children: [
-          Container(
+          /* Container(
             color: index == 0 ? Colors.transparent : (index <= activeIndex ? activeBarColor : inActiveBarColor),
             width: barWidth,
-            height: gap,
-          ),
+          ), */
           DotProvider(
             activeIndex: activeIndex,
             index: index,
@@ -76,13 +71,12 @@ class VerticalStepperItem extends StatelessWidget {
             iconHeight: iconHeight,
             iconWidth: iconWidth,
           ),
-          Container(
+          /*  Container(
             color: index == totalLength - 1
                 ? Colors.transparent
                 : (index < activeIndex ? activeBarColor : inActiveBarColor),
             width: barWidth,
-            height: gap,
-          ),
+          ), */
         ],
       ),
       const SizedBox(width: 8),
