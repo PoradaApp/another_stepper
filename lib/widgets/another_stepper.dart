@@ -66,7 +66,7 @@ class AnotherStepper extends StatelessWidget {
             .map(
               (i) => HorizontalStepperItem(
                 index: i,
-                item: stepperList[i],
+                data: stepperList[i],
                 totalLength: stepperList.length,
                 activeIndex: activeIndex,
                 isInverted: inverted,
@@ -78,10 +78,13 @@ class AnotherStepper extends StatelessWidget {
             .expand((widget) => [
                   widget,
                   Expanded(
-                    child: Container(
-                      color: (widget.index < activeIndex ? activeBarColor : inActiveBarColor),
-                      height: barThickness,
-                      constraints: const BoxConstraints(minWidth: 0),
+                    child: Padding(
+                      padding: widget.data.horizontalLinePadding ?? EdgeInsets.zero,
+                      child: Container(
+                        color: (widget.index < activeIndex ? activeBarColor : inActiveBarColor),
+                        height: barThickness,
+                        constraints: const BoxConstraints(minWidth: 0),
+                      ),
                     ),
                   ),
                 ])

@@ -6,7 +6,7 @@ class HorizontalStepperItem extends StatelessWidget {
   /// Stepper Item to show horizontal stepper
   const HorizontalStepperItem({
     Key? key,
-    required this.item,
+    required this.data,
     required this.index,
     required this.totalLength,
     required this.activeIndex,
@@ -17,7 +17,7 @@ class HorizontalStepperItem extends StatelessWidget {
   }) : super(key: key);
 
   /// Stepper item of type [StepperData] to inflate stepper with data
-  final StepperData item;
+  final StepperData data;
 
   /// Index at which the item is present
   final int index;
@@ -56,10 +56,10 @@ class HorizontalStepperItem extends StatelessWidget {
           DotProvider(
             activeIndex: activeIndex,
             index: index,
-            item: item,
+            item: data,
             totalLength: totalLength,
-            iconHeight: item.iconHeight,
-            iconWidth: item.iconWidth,
+            iconHeight: data.iconHeight,
+            iconWidth: data.iconWidth,
           ),
         ],
       ),

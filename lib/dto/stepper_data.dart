@@ -9,6 +9,8 @@ class StepperData {
 
   final EdgeInsets? verticalLinePadding;
 
+  final EdgeInsets? horizontalLinePadding;
+
   final Widget? optionalContent;
 
   /// Use the constructor of [StepperData] to pass the data needed.
@@ -17,6 +19,7 @@ class StepperData {
     this.iconHeight,
     this.iconWidth,
     this.verticalLinePadding,
+    this.horizontalLinePadding,
     this.optionalContent,
   });
 }
