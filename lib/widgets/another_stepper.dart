@@ -77,8 +77,9 @@ class AnotherStepper extends StatelessWidget {
         children: stepperList.asMap().entries.map((entry) {
           final int i = entry.key;
           final bool isLastItem = i == stepperList.length - 1;
-          return Expanded(
+          return Flexible(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 HorizontalStepperItem(
                   index: i,
@@ -91,10 +92,12 @@ class AnotherStepper extends StatelessWidget {
                   barHeight: barThickness,
                 ),
                 if (!isLastItem)
-                  Container(
-                    color: Colors.green,
-                    height: barThickness,
-                    constraints: const BoxConstraints(minWidth: 0),
+                  Expanded(
+                    child: Container(
+                      color: Colors.green,
+                      height: barThickness,
+                      constraints: const BoxConstraints(minWidth: 0),
+                    ),
                   ),
               ],
             ),
